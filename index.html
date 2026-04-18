@@ -559,13 +559,18 @@ loadProfile();
 }
 
 window.onload=function(){
+
 if(localStorage.getItem("remember")=="yes"){
-user.value=localStorage.getItem("savedUser");
-classCode.value=localStorage.getItem("savedCode");
-remember.checked=true;
+user.value = localStorage.getItem("savedUser") || "";
+classCode.value = localStorage.getItem("savedCode") || "";
+remember.checked = true;
 login();
+}else{
+loginPage.style.display="block";
+site.style.display="none";
 }
-};
+
+}
 
 function logout(){
 
@@ -743,6 +748,54 @@ radial-gradient(circle at 65% 55%,#000 0 18px,transparent 19px),
 #fff`;
 }
 }
+  <!-- FULL FIX: you're still logged in because auto-login runs from localStorage -->
+<!-- REPLACE BOTH login() save section + logout() -->
+
+<script>
+function login(){
+
+currentUser = user.value.trim();
+currentCode = classCode.value.trim();
+
+if(currentUser=="" || currentCode==""){
+alert("Fill all boxes");
+return;
+}
+
+/* SAVE ONLY IF BOX CHECKED */
+if(remember.checked){
+localStorage.setItem("remember","yes");
+localStorage.setItem("savedUser",currentUser);
+localStorage.setItem("savedCode",currentCode);
+}else{
+localStorage.removeItem("remember");
+localStorage.removeItem("savedUser");
+localStorage.removeItem("savedCode");
+}
+
+/* rest of your login code here */
+loginPage.style.display="none";
+site.style.display="block";
+}
+
+function logout(){
+
+/* clear auto login */
+localStorage.removeItem("remember");
+localStorage.removeItem("savedUser");
+localStorage.removeItem("savedCode");
+
+/* optional clear current boxes */
+user.value="";
+pw.value="";
+classCode.value="";
+remember.checked=false;
+
+/* show login page again WITHOUT refresh */
+site.style.display="none";
+loginPage.style.display="block";
+}
+</script>
 </script>
 
 </body>
