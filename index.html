@@ -567,7 +567,14 @@ login();
 }
 };
 
-function logout(){location.reload();}
+function logout(){
+
+localStorage.removeItem("remember");
+localStorage.removeItem("savedUser");
+localStorage.removeItem("savedCode");
+
+location.reload();
+}
 
 function openPage(id){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
