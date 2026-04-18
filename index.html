@@ -4,110 +4,245 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHAT School</title>
-
-<link rel="icon" type="image/png" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.png">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-font-family:'Fredoka',sans-serif;
-background:linear-gradient(135deg,#ffdff0,#dff6ff,#f3e3ff,#fff9cc);
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ffe6f3,#e8f6ff,#fff8d9);
 min-height:100vh;
-color:#222;
+color:#333;
 }
 
 header{
 background:white;
 padding:25px;
 text-align:center;
-box-shadow:0 8px 18px rgba(0,0,0,.08);
+box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-header h1{font-size:42px;}
+header h1{
+font-size:42px;
+color:#ff69b4;
+}
 
 header p{
-margin-top:8px;
-color:#555;
+margin-top:6px;
+color:#777;
 }
 
-.page{
-display:none;
-max-width:950px;
-margin:auto;
-padding:20px;
-}
-
+.page{display:none;padding:20px;}
 .show{display:block;}
 
 .card{
 background:white;
-padding:24px;
-border-radius:24px;
-box-shadow:0 10px 20px rgba(0,0,0,.08);
-margin-bottom:20px;
+max-width:900px;
+margin:auto;
+padding:22px;
+border-radius:22px;
+box-shadow:0 8px 18px rgba(0,0,0,.08);
+margin-bottom:18px;
 }
 
-input,select{
+input,select,button{
 width:100%;
 padding:12px;
-margin-top:12px;
+margin-top:10px;
 border-radius:14px;
-border:1px solid #ccc;
-font-family:'Fredoka',sans-serif;
 font-size:16px;
+border:1px solid #ccc;
 }
 
 button{
+background:#ffb9dd;
 border:none;
-padding:12px 18px;
-border-radius:16px;
-cursor:pointer;
-font-family:'Fredoka',sans-serif;
 font-weight:bold;
-background:linear-gradient(135deg,#ffd6ec,#ffc2f1);
-margin-top:12px;
+cursor:pointer;
 }
+
+button:hover{transform:scale(1.02);}
 
 nav{
 display:flex;
-justify-content:center;
 gap:10px;
+justify-content:center;
 flex-wrap:wrap;
 padding:15px;
 }
 
-.avatar{
-font-size:55px;
-text-align:center;
-margin:10px 0;
+nav button{
+width:auto;
+padding:10px 16px;
 }
 
 .chatBox{
-height:250px;
+height:260px;
 overflow:auto;
-background:#f8f8ff;
+background:#f7f7ff;
 padding:10px;
 border-radius:16px;
 margin-bottom:10px;
 }
 
 .msg{
-padding:8px;
-margin:6px 0;
 background:white;
-border-radius:12px;
+padding:10px;
+border-radius:14px;
+margin:8px 0;
 }
 
-.centerCheck{
-text-align:center;
-margin-top:14px;
+/* AVATAR */
+
+.avatarWrap{
+display:flex;
+justify-content:center;
+margin:20px 0;
 }
+
+.avatar{
+width:240px;
+height:240px;
+position:relative;
+}
+
+/* tail */
+.tail{
+position:absolute;
+right:0;
+top:150px;
+width:100px;
+height:20px;
+border:4px solid #444;
+border-radius:30px;
+transform:rotate(18deg);
+z-index:0;
+}
+
+/* body */
+.body{
+position:absolute;
+left:58px;
+top:118px;
+width:120px;
+height:95px;
+border:4px solid #444;
+border-radius:50%;
+z-index:1;
+}
+
+/* head */
+.head{
+position:absolute;
+left:55px;
+top:38px;
+width:130px;
+height:112px;
+border:4px solid #444;
+border-radius:50%;
+z-index:2;
+}
+
+/* ears */
+.ear{
+position:absolute;
+width:42px;
+height:42px;
+top:22px;
+transform:rotate(45deg);
+border:4px solid #444;
+border-radius:12px;
+z-index:1;
+}
+
+.leftEar{left:68px;}
+.rightEar{right:68px;}
+
+.innerEar{
+width:16px;
+height:16px;
+background:#ffc0d8;
+margin:10px;
+border-radius:8px;
+}
+
+/* eyes */
+.eye{
+position:absolute;
+width:18px;
+height:24px;
+top:80px;
+border-radius:50%;
+z-index:3;
+}
+
+.leftEye{left:94px;}
+.rightEye{right:94px;}
+
+.eye:after{
+content:"";
+position:absolute;
+width:6px;
+height:6px;
+background:white;
+left:4px;
+top:4px;
+border-radius:50%;
+}
+
+/* nose */
+.nose{
+position:absolute;
+width:12px;
+height:10px;
+left:114px;
+top:106px;
+background:#ff99bb;
+border-radius:50%;
+z-index:4;
+}
+
+/* mouth */
+.mouth{
+position:absolute;
+left:105px;
+top:120px;
+width:30px;
+height:12px;
+z-index:4;
+}
+
+.mouth:before,.mouth:after{
+content:"";
+position:absolute;
+width:14px;
+height:8px;
+border-bottom:3px solid #444;
+border-radius:0 0 12px 12px;
+}
+
+.mouth:before{left:0;}
+.mouth:after{right:0;}
+
+/* paws */
+.paw{
+position:absolute;
+bottom:16px;
+width:24px;
+height:18px;
+border:3px solid #444;
+border-radius:50%;
+z-index:2;
+}
+
+.p1{left:84px;}
+.p2{right:84px;}
 
 footer{
 text-align:center;
 padding:20px;
+color:#777;
 }
 </style>
 </head>
@@ -122,22 +257,18 @@ padding:20px;
 <!-- LOGIN -->
 <div id="loginPage" class="page show">
 <div class="card">
-
-<h2>✨ Login ✨</h2>
+<h2>Login</h2>
 
 <input id="user" placeholder="Username">
 <input id="pw" placeholder="Password">
-<input id="classCode" placeholder="Class Code">
+<input id="classCode" placeholder="Enter Class Code">
 
-<div class="centerCheck">
 <label>
-<input type="checkbox" id="remember">
+<input type="checkbox" id="remember" style="width:auto">
 Keep me signed in
 </label>
-</div>
 
 <button onclick="login()">Enter School</button>
-
 </div>
 </div>
 
@@ -146,7 +277,7 @@ Keep me signed in
 
 <nav>
 <button onclick="openPage('home')">Home</button>
-<button onclick="openPage('profile')">Profile</button>
+<button onclick="openPage('avatarPage')">Avatar Station</button>
 <button onclick="openPage('chat')">Chat</button>
 <button onclick="logout()">Logout</button>
 </nav>
@@ -155,58 +286,99 @@ Keep me signed in
 <div id="home" class="page show">
 <div class="card">
 <h2 id="welcome"></h2>
-<p>Welcome to CHAT School ✨</p>
+<p>Welcome to the cutest school ever.</p>
 </div>
 </div>
 
-<!-- PROFILE -->
-<div id="profile" class="page">
+<!-- AVATAR -->
+<div id="avatarPage" class="page">
 <div class="card">
 
-<h2>👤 Edit Profile</h2>
+<h2>Avatar Station</h2>
 
-<div class="avatar" id="avatarPreview">🐱</div>
+<div class="avatarWrap">
+<div class="avatar" id="avatar">
 
-<select id="breed">
-<option>Cat</option>
-<option>Fluffy Cat</option>
-<option>Round Cat</option>
-<option>Sleepy Cat</option>
+<div class="tail" id="tail"></div>
+<div class="body" id="bodyPart"></div>
+<div class="head" id="headPart"></div>
+
+<div class="ear leftEar" id="earL"><div class="innerEar"></div></div>
+<div class="ear rightEar" id="earR"><div class="innerEar"></div></div>
+
+<div class="eye leftEye" id="eye1"></div>
+<div class="eye rightEye" id="eye2"></div>
+
+<div class="nose"></div>
+<div class="mouth"></div>
+
+<div class="paw p1" id="paw1"></div>
+<div class="paw p2" id="paw2"></div>
+
+</div>
+</div>
+
+<select id="preset">
+<option value="none">Pre Made None</option>
+<option value="siamese">Siamese</option>
+<option value="calico">Calico</option>
+<option value="tabby">Tabby</option>
 </select>
 
-<select id="color1">
-<option>White</option>
-<option>Black</option>
-<option>Orange</option>
-<option>Gray</option>
-<option>Pink</option>
+<select id="eyeColor">
+<option value="green">Eyes Green</option>
+<option value="amber">Eyes Amber</option>
+<option value="black">Eyes Black</option>
+<option value="blue">Eyes Blue</option>
+<option value="brown">Eyes Brown</option>
 </select>
 
-<select id="color2">
-<option>None</option>
-<option>White</option>
-<option>Black</option>
-<option>Orange</option>
-<option>Gray</option>
-<option>Pink</option>
+<select id="furColor">
+<option value="white">Fur White</option>
+<option value="grey">Fur Grey</option>
+<option value="black">Fur Black</option>
+<option value="brown">Fur Brown</option>
+<option value="tan">Fur Tan</option>
 </select>
 
-<select id="fur">
-<option>Short Fur</option>
-<option>Medium Fur</option>
-<option>Long Fur</option>
+<select id="pawColor">
+<option value="white">Paws White</option>
+<option value="grey">Paws Grey</option>
+<option value="black">Paws Black</option>
+<option value="brown">Paws Brown</option>
+<option value="tan">Paws Tan</option>
 </select>
 
-<select id="eyes">
-<option>Blue Eyes</option>
-<option>Green Eyes</option>
-<option>Brown Eyes</option>
-<option>Purple Eyes</option>
+<select id="tailLength">
+<option value="70">Tail Short</option>
+<option value="100">Tail Medium</option>
+<option value="145">Tail Long</option>
 </select>
 
-<button onclick="saveProfile()">Save Avatar</button>
+<select id="earColor">
+<option value="white">Ears White</option>
+<option value="grey">Ears Grey</option>
+<option value="black">Ears Black</option>
+<option value="brown">Ears Brown</option>
+<option value="tan">Ears Tan</option>
+</select>
 
-<div id="profileInfo" style="margin-top:14px;"></div>
+<select id="tailColor">
+<option value="white">Tail White</option>
+<option value="grey">Tail Grey</option>
+<option value="black">Tail Black</option>
+<option value="brown">Tail Brown</option>
+<option value="tan">Tail Tan</option>
+</select>
+
+<select id="pattern">
+<option value="none">Pattern None</option>
+<option value="stripes">Stripes</option>
+<option value="spots">Spots</option>
+<option value="calico">Calico</option>
+</select>
+
+<button onclick="saveAvatar()">Save Avatar</button>
 
 </div>
 </div>
@@ -214,167 +386,198 @@ Keep me signed in
 <!-- CHAT -->
 <div id="chat" class="page">
 <div class="card">
-
-<h2>💬 Class Chat</h2>
+<h2>Class Chat</h2>
 
 <div class="chatBox" id="chatBox"></div>
 
-<input id="chatInput" placeholder="Say something...">
+<input id="chatInput" placeholder="Say something">
 <button onclick="sendMsg()">Send</button>
 
 </div>
 </div>
 
-<footer>CHAT School ✨</footer>
-
-</div>
+<footer>CHAT School</footer>
 
 <script>
 let currentUser="";
 let currentCode="";
-let avatar="🐱";
 
 /* LOGIN */
 function login(){
 
-currentUser=document.getElementById("user").value.trim();
-let pw=document.getElementById("pw").value.trim();
-currentCode=document.getElementById("classCode").value.trim();
+currentUser=user.value.trim();
+currentCode=classCode.value.trim();
 
-if(currentUser==""){
-alert("Enter username");
+if(currentUser=="" || currentCode==""){
+alert("Fill all boxes");
 return;
 }
 
-if(currentCode==""){
-alert("Enter class code");
-return;
-}
-
-/* ADMIN MODE */
-if(currentUser=="Ms. Crossman-Flouty" && pw=="Daisy12321"){
-currentCode="ADMIN";
-}
-
-/* KEEP SIGNED IN */
-if(document.getElementById("remember").checked"){
+if(remember.checked){
 localStorage.setItem("savedUser",currentUser);
-localStorage.setItem("savedPw",pw);
 localStorage.setItem("savedCode",currentCode);
-}else{
-localStorage.removeItem("savedUser");
-localStorage.removeItem("savedPw");
-localStorage.removeItem("savedCode");
+localStorage.setItem("remember","yes");
 }
 
-document.getElementById("loginPage").style.display="none";
-document.getElementById("site").style.display="block";
+loginPage.style.display="none";
+site.style.display="block";
 
-let text="Welcome " + currentUser;
+welcome.innerText="Welcome "+currentUser+" | Class "+currentCode;
 
-if(currentCode=="ADMIN"){
-text+=" 👑 Admin Mode";
-}else{
-text+=" | Joined: " + currentCode;
-}
-
-document.getElementById("welcome").innerText=text;
-
-loadProfile();
+loadAvatar();
 loadChat();
 }
 
-/* PAGE */
+window.onload=function(){
+if(localStorage.getItem("remember")=="yes"){
+user.value=localStorage.getItem("savedUser");
+classCode.value=localStorage.getItem("savedCode");
+remember.checked=true;
+login();
+}
+};
+
+function logout(){location.reload();}
+
 function openPage(id){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
 document.getElementById(id).classList.add("show");
 }
 
-/* LOGOUT */
-function logout(){
-localStorage.clear();
-location.reload();
+/* AVATAR */
+function saveAvatar(){
+
+let data={
+preset:preset.value,
+eyes:eyeColor.value,
+fur:furColor.value,
+paws:pawColor.value,
+tailLen:tailLength.value,
+ears:earColor.value,
+tail:tailColor.value,
+pattern:pattern.value
+};
+
+localStorage.setItem("avatar_"+currentUser,JSON.stringify(data));
+loadAvatar();
 }
 
-/* PROFILE */
-function saveProfile(){
+function loadAvatar(){
 
-let breed=document.getElementById("breed").value;
-let c1=document.getElementById("color1").value;
-let c2=document.getElementById("color2").value;
-let fur=document.getElementById("fur").value;
-let eyes=document.getElementById("eyes").value;
+let d=JSON.parse(localStorage.getItem("avatar_"+currentUser))||{
+preset:"none",
+eyes:"green",
+fur:"white",
+paws:"white",
+tailLen:"100",
+ears:"white",
+tail:"white",
+pattern:"none"
+};
 
-avatar="🐱";
-
-document.getElementById("avatarPreview").innerText=avatar;
-
-localStorage.setItem("avatar",avatar);
-localStorage.setItem("profileText",
-breed+" | "+c1+" & "+c2+" | "+fur+" | "+eyes);
-
-loadProfile();
+/* PRESETS */
+if(d.preset=="siamese"){
+d.eyes="blue";
+d.fur="tan";
+d.paws="grey";
+d.ears="grey";
+d.tail="grey";
+d.pattern="none";
 }
 
-function loadProfile(){
+if(d.preset=="calico"){
+d.eyes="green";
+d.fur="white";
+d.paws="white";
+d.ears="white";
+d.tail="white";
+d.pattern="calico";
+}
 
-avatar=localStorage.getItem("avatar") || "🐱";
-let txt=localStorage.getItem("profileText") || "No custom avatar yet.";
+if(d.preset=="tabby"){
+d.eyes="amber";
+d.fur="brown";
+d.paws="brown";
+d.ears="brown";
+d.tail="brown";
+d.pattern="stripes";
+}
 
-document.getElementById("avatarPreview").innerText=avatar;
-document.getElementById("profileInfo").innerHTML=
-"<b>"+currentUser+"</b><br>"+txt;
+/* base */
+bodyPart.style.background=d.fur;
+headPart.style.background=d.fur;
+
+paw1.style.background=d.paws;
+paw2.style.background=d.paws;
+
+earL.style.background=d.ears;
+earR.style.background=d.ears;
+
+tail.style.background=d.tail;
+tail.style.width=d.tailLen+"px";
+
+eye1.style.background=d.eyes;
+eye2.style.background=d.eyes;
+
+/* patterns */
+if(d.pattern=="stripes"){
+bodyPart.style.background=
+"repeating-linear-gradient(90deg,"+d.fur+" 0 12px, black 12px 18px)";
+headPart.style.background=
+"repeating-linear-gradient(90deg,"+d.fur+" 0 12px, black 12px 18px)";
+}
+
+if(d.pattern=="spots"){
+bodyPart.style.background=
+"radial-gradient(circle at 30% 30%, black 0 10px, transparent 11px),"+
+"radial-gradient(circle at 70% 65%, black 0 10px, transparent 11px),"+d.fur;
+
+headPart.style.background=
+"radial-gradient(circle at 45% 35%, black 0 10px, transparent 11px),"+d.fur;
+}
+
+if(d.pattern=="calico"){
+bodyPart.style.background=
+"radial-gradient(circle at 25% 25%, orange 0 18px, transparent 19px),"+
+"radial-gradient(circle at 70% 60%, black 0 18px, transparent 19px),white";
+
+headPart.style.background=
+"radial-gradient(circle at 35% 35%, orange 0 18px, transparent 19px),"+
+"radial-gradient(circle at 65% 55%, black 0 18px, transparent 19px),white";
+}
 }
 
 /* CHAT */
 function sendMsg(){
 
-let msg=document.getElementById("chatInput").value.trim();
-if(msg=="") return;
+let txt=chatInput.value.trim();
+if(txt=="") return;
 
-let old=JSON.parse(localStorage.getItem("chatMsgs") || "[]");
+let msgs=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
 
-old.push({
+msgs.push({
 name:currentUser,
-avatar:avatar,
-text:msg
+text:txt
 });
 
-localStorage.setItem("chatMsgs",JSON.stringify(old));
-document.getElementById("chatInput").value="";
+localStorage.setItem("chat_"+currentCode,JSON.stringify(msgs));
+
+chatInput.value="";
 loadChat();
 }
 
 function loadChat(){
 
-let msgs=JSON.parse(localStorage.getItem("chatMsgs") || "[]");
-let box=document.getElementById("chatBox");
+let msgs=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
 
-box.innerHTML="";
+chatBox.innerHTML="";
 
 msgs.forEach(m=>{
-box.innerHTML+=
-"<div class='msg'>"+m.avatar+" <b>"+m.name+
-"</b>: "+m.text+"</div>";
+chatBox.innerHTML+=`
+<div class="msg"><b>${m.name}</b>: ${m.text}</div>
+`;
 });
 
-box.scrollTop=box.scrollHeight;
-}
-
-/* AUTO LOGIN */
-window.onload=function(){
-
-let u=localStorage.getItem("savedUser");
-let p=localStorage.getItem("savedPw");
-let c=localStorage.getItem("savedCode");
-
-if(u && c){
-document.getElementById("user").value=u;
-document.getElementById("pw").value=p;
-document.getElementById("classCode").value=c;
-document.getElementById("remember").checked=true;
-login();
-}
 }
 </script>
 
