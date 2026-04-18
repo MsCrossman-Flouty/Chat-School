@@ -6,43 +6,100 @@
 <title>CHAT School</title>
 <link rel="icon" href="favicon.png">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#ffe6f3,#e8f6ff,#fff8d9);
+font-family:'Quicksand',sans-serif;
+background:linear-gradient(135deg,#ffe8f5,#eef8ff,#fff8d8);
+color:#000;
 min-height:100vh;
-color:#333;
+overflow-x:hidden;
+}
+
+/* titles */
+h1,h2,h3,h4,h5,h6,button,nav button{
+font-family:'Fredoka',sans-serif;
+}
+
+/* background */
+.sky{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:-1;
+overflow:hidden;
+}
+
+.cloud{
+position:absolute;
+width:120px;
+height:42px;
+background:rgba(255,255,255,.88);
+border-radius:50px;
+animation:bob 5s ease-in-out infinite;
+}
+.cloud:before,.cloud:after{
+content:"";
+position:absolute;
+background:rgba(255,255,255,.88);
+border-radius:50%;
+}
+.cloud:before{width:42px;height:42px;left:12px;top:-18px;}
+.cloud:after{width:54px;height:54px;right:14px;top:-24px;}
+
+.star{
+position:absolute;
+font-size:22px;
+animation:bob2 3s ease-in-out infinite;
+}
+
+@keyframes bob{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+@keyframes bob2{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-7px);}
 }
 
 header{
-background:white;
-padding:25px;
+background:#ffffffd8;
+padding:24px;
 text-align:center;
-box-shadow:0 4px 12px rgba(0,0,0,.08);
+box-shadow:0 8px 18px rgba(0,0,0,.08);
 }
 
-header h1{
-font-size:42px;
-color:#ff69b4;
+header h1{font-size:42px;}
+header p{margin-top:6px;}
+
+nav{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+padding:14px;
 }
 
-header p{
-margin-top:6px;
-color:#777;
+nav button{
+width:auto;
+padding:10px 18px;
 }
 
 .page{display:none;padding:20px;}
 .show{display:block;}
 
 .card{
-background:white;
-max-width:900px;
+max-width:950px;
 margin:auto;
+background:white;
 padding:22px;
-border-radius:22px;
-box-shadow:0 8px 18px rgba(0,0,0,.08);
+border-radius:24px;
+box-shadow:0 10px 20px rgba(0,0,0,.08);
 margin-bottom:18px;
 }
 
@@ -50,39 +107,27 @@ input,select,button{
 width:100%;
 padding:12px;
 margin-top:10px;
-border-radius:14px;
+border-radius:16px;
+border:1px solid #ddd;
 font-size:16px;
-border:1px solid #ccc;
+color:#000;
 }
 
 button{
-background:#ffb9dd;
+background:#ffc9ea;
 border:none;
-font-weight:bold;
 cursor:pointer;
+font-weight:600;
 }
 
 button:hover{transform:scale(1.02);}
 
-nav{
-display:flex;
-gap:10px;
-justify-content:center;
-flex-wrap:wrap;
-padding:15px;
-}
-
-nav button{
-width:auto;
-padding:10px 16px;
-}
-
 .chatBox{
-height:260px;
+height:280px;
 overflow:auto;
-background:#f7f7ff;
+background:#f7f8ff;
 padding:10px;
-border-radius:16px;
+border-radius:18px;
 margin-bottom:10px;
 }
 
@@ -93,8 +138,15 @@ border-radius:14px;
 margin:8px 0;
 }
 
-/* AVATAR */
+.assignment{
+background:#fff7fc;
+border:2px solid #ffd4ea;
+padding:14px;
+border-radius:18px;
+margin-top:12px;
+}
 
+/* avatar */
 .avatarWrap{
 display:flex;
 justify-content:center;
@@ -102,83 +154,80 @@ margin:20px 0;
 }
 
 .avatar{
-width:240px;
-height:240px;
+width:250px;
+height:250px;
 position:relative;
 }
 
-/* tail */
 .tail{
 position:absolute;
-right:0;
-top:150px;
+right:18px;
+top:158px;
+height:18px;
 width:100px;
-height:20px;
-border:4px solid #444;
+border:4px solid #333;
 border-radius:30px;
 transform:rotate(18deg);
-z-index:0;
+transform-origin:left center;
 }
 
-/* body */
 .body{
 position:absolute;
-left:58px;
+left:60px;
 top:118px;
-width:120px;
+width:122px;
 height:95px;
-border:4px solid #444;
-border-radius:50%;
-z-index:1;
-}
-
-/* head */
-.head{
-position:absolute;
-left:55px;
-top:38px;
-width:130px;
-height:112px;
-border:4px solid #444;
+border:4px solid #333;
 border-radius:50%;
 z-index:2;
 }
 
-/* ears */
-.ear{
+.head{
 position:absolute;
-width:42px;
-height:42px;
-top:22px;
-transform:rotate(45deg);
-border:4px solid #444;
-border-radius:12px;
-z-index:1;
-}
-
-.leftEar{left:68px;}
-.rightEar{right:68px;}
-
-.innerEar{
-width:16px;
-height:16px;
-background:#ffc0d8;
-margin:10px;
-border-radius:8px;
-}
-
-/* eyes */
-.eye{
-position:absolute;
-width:18px;
-height:24px;
-top:80px;
+left:58px;
+top:42px;
+width:130px;
+height:112px;
+border:4px solid #333;
 border-radius:50%;
 z-index:3;
 }
 
-.leftEye{left:94px;}
-.rightEye{right:94px;}
+.ear{
+position:absolute;
+top:24px;
+width:42px;
+height:42px;
+border:4px solid #333;
+border-radius:14px;
+transform:rotate(45deg);
+z-index:1;
+}
+
+.leftEar{left:72px;}
+.rightEar{right:72px;}
+
+.innerEar{
+position:absolute;
+width:18px;
+height:18px;
+background:#ffb6d9;
+border-radius:8px;
+left:10px;
+top:10px;
+}
+
+.eye{
+position:absolute;
+top:86px;
+width:18px;
+height:24px;
+border-radius:50%;
+z-index:4;
+}
+
+.leftEye{left:95px;}
+.rightEye{right:95px;}
 
 .eye:after{
 content:"";
@@ -186,30 +235,28 @@ position:absolute;
 width:6px;
 height:6px;
 background:white;
+border-radius:50%;
 left:4px;
 top:4px;
-border-radius:50%;
 }
 
-/* nose */
 .nose{
 position:absolute;
+left:118px;
+top:108px;
 width:12px;
 height:10px;
-left:114px;
-top:106px;
-background:#ff99bb;
+background:pink;
 border-radius:50%;
 z-index:4;
 }
 
-/* mouth */
 .mouth{
 position:absolute;
-left:105px;
-top:120px;
-width:30px;
-height:12px;
+left:108px;
+top:121px;
+width:32px;
+height:10px;
 z-index:4;
 }
 
@@ -218,36 +265,44 @@ content:"";
 position:absolute;
 width:14px;
 height:8px;
-border-bottom:3px solid #444;
+border-bottom:3px solid #333;
 border-radius:0 0 12px 12px;
 }
 
 .mouth:before{left:0;}
 .mouth:after{right:0;}
 
-/* paws */
 .paw{
 position:absolute;
-bottom:16px;
+bottom:18px;
 width:24px;
 height:18px;
-border:3px solid #444;
+border:3px solid #333;
 border-radius:50%;
-z-index:2;
+z-index:4;
 }
 
-.p1{left:84px;}
-.p2{right:84px;}
+.p1{left:86px;}
+.p2{right:86px;}
 
 footer{
 text-align:center;
-padding:20px;
-color:#777;
+padding:26px;
+font-size:14px;
 }
 </style>
 </head>
-
 <body>
+
+<div class="sky">
+<div class="cloud" style="top:60px;left:5%;"></div>
+<div class="cloud" style="top:150px;right:8%;animation-delay:1s;"></div>
+<div class="cloud" style="top:320px;left:18%;animation-delay:2s;"></div>
+
+<div class="star" style="top:40px;left:35%;">⭐</div>
+<div class="star" style="top:100px;right:25%;animation-delay:1s;">✨</div>
+<div class="star" style="top:260px;left:72%;animation-delay:2s;">⭐</div>
+</div>
 
 <header>
 <h1>🌸 CHAT School 🌸</h1>
@@ -261,12 +316,9 @@ color:#777;
 
 <input id="user" placeholder="Username">
 <input id="pw" placeholder="Password">
-<input id="classCode" placeholder="Enter Class Code">
+<input id="classCode" placeholder="Class Code">
 
-<label>
-<input type="checkbox" id="remember" style="width:auto">
-Keep me signed in
-</label>
+<label><input type="checkbox" id="remember" style="width:auto;"> Keep me signed in</label>
 
 <button onclick="login()">Enter School</button>
 </div>
@@ -277,8 +329,11 @@ Keep me signed in
 
 <nav>
 <button onclick="openPage('home')">Home</button>
-<button onclick="openPage('avatarPage')">Avatar Station</button>
+<button onclick="openPage('assignments')">Assignments</button>
+<button onclick="openPage('avatarPage')">Avatar</button>
+<button onclick="openPage('profile')">Profile</button>
 <button onclick="openPage('chat')">Chat</button>
+<button id="adminBtn" style="display:none;" onclick="openPage('admin')">Teacher</button>
 <button onclick="logout()">Logout</button>
 </nav>
 
@@ -286,25 +341,90 @@ Keep me signed in
 <div id="home" class="page show">
 <div class="card">
 <h2 id="welcome"></h2>
-<p>Welcome to the cutest school ever.</p>
+<p>Welcome to the cutest classroom ever ✨</p>
+</div>
+</div>
+
+<!-- ASSIGNMENTS -->
+<div id="assignments" class="page">
+<div class="card">
+<h2>Assignments</h2>
+<div id="assignList"></div>
+</div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="page">
+<div class="card">
+<h2 id="profileName"></h2>
+<p id="profileClass"></p>
+
+<div class="assignment">
+<b>Age:</b> <span id="ageText">Not set</span>
+<button onclick="editField('age')">✏ Edit</button>
+</div>
+
+<div class="assignment">
+<b>Favorite Color:</b> <span id="colorText">Not set</span>
+<button onclick="editField('color')">✏ Edit</button>
+</div>
+
+<div class="assignment">
+<b>Favorite Animal:</b> <span id="animalText">Not set</span>
+<button onclick="editField('animal')">✏ Edit</button>
+</div>
+
+<div class="assignment">
+<b>Favorite Subject:</b> <span id="subjectText">Not set</span>
+<button onclick="editField('subject')">✏ Edit</button>
+</div>
+
+</div>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="page">
+<div class="card">
+<h2>Class Chat</h2>
+<div class="chatBox" id="chatBox"></div>
+<input id="chatInput" placeholder="Say something">
+<button onclick="sendMsg()">Send</button>
+</div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="page">
+<div class="card">
+<h2>Teacher Controls</h2>
+
+<input id="assignTitle" placeholder="Assignment Title">
+<input id="assignText" placeholder="Instructions">
+<button onclick="postAssignment()">Post Assignment</button>
+
+<input id="announceText" placeholder="Announcement">
+<button onclick="postAnnouncement()">Send Announcement</button>
+
+<button onclick="clearAssignments()">Delete Assignments</button>
+<button onclick="clearChat()">Clear Chat</button>
+
 </div>
 </div>
 
 <!-- AVATAR -->
 <div id="avatarPage" class="page">
 <div class="card">
-
 <h2>Avatar Station</h2>
 
 <div class="avatarWrap">
-<div class="avatar" id="avatar">
+<div class="avatar">
 
 <div class="tail" id="tail"></div>
 <div class="body" id="bodyPart"></div>
-<div class="head" id="headPart"></div>
 
 <div class="ear leftEar" id="earL"><div class="innerEar"></div></div>
 <div class="ear rightEar" id="earR"><div class="innerEar"></div></div>
+
+<div class="head" id="headPart"></div>
 
 <div class="eye leftEye" id="eye1"></div>
 <div class="eye rightEye" id="eye2"></div>
@@ -318,64 +438,64 @@ Keep me signed in
 </div>
 </div>
 
-<select id="preset">
-<option value="none">Pre Made None</option>
-<option value="siamese">Siamese</option>
-<option value="calico">Calico</option>
-<option value="tabby">Tabby</option>
-</select>
-
+<label>Eye Color</label>
 <select id="eyeColor">
-<option value="green">Eyes Green</option>
-<option value="amber">Eyes Amber</option>
-<option value="black">Eyes Black</option>
-<option value="blue">Eyes Blue</option>
-<option value="brown">Eyes Brown</option>
+<option>green</option>
+<option>amber</option>
+<option>black</option>
+<option>blue</option>
+<option>brown</option>
 </select>
 
+<label>Fur Color</label>
 <select id="furColor">
-<option value="white">Fur White</option>
-<option value="grey">Fur Grey</option>
-<option value="black">Fur Black</option>
-<option value="brown">Fur Brown</option>
-<option value="tan">Fur Tan</option>
+<option>white</option>
+<option>grey</option>
+<option>black</option>
+<option>brown</option>
+<option>tan</option>
 </select>
 
+<label>Paw Color</label>
 <select id="pawColor">
-<option value="white">Paws White</option>
-<option value="grey">Paws Grey</option>
-<option value="black">Paws Black</option>
-<option value="brown">Paws Brown</option>
-<option value="tan">Paws Tan</option>
+<option>white</option>
+<option>grey</option>
+<option>black</option>
+<option>brown</option>
+<option>tan</option>
 </select>
 
+<label>Tail Length</label>
 <select id="tailLength">
-<option value="70">Tail Short</option>
-<option value="100">Tail Medium</option>
-<option value="145">Tail Long</option>
+<option value="70">short</option>
+<option value="100">medium</option>
+<option value="145">long</option>
 </select>
 
+<label>Ear Color</label>
 <select id="earColor">
-<option value="white">Ears White</option>
-<option value="grey">Ears Grey</option>
-<option value="black">Ears Black</option>
-<option value="brown">Ears Brown</option>
-<option value="tan">Ears Tan</option>
+<option>white</option>
+<option>grey</option>
+<option>black</option>
+<option>brown</option>
+<option>tan</option>
 </select>
 
+<label>Tail Color</label>
 <select id="tailColor">
-<option value="white">Tail White</option>
-<option value="grey">Tail Grey</option>
-<option value="black">Tail Black</option>
-<option value="brown">Tail Brown</option>
-<option value="tan">Tail Tan</option>
+<option>white</option>
+<option>grey</option>
+<option>black</option>
+<option>brown</option>
+<option>tan</option>
 </select>
 
+<label>Pattern</label>
 <select id="pattern">
-<option value="none">Pattern None</option>
-<option value="stripes">Stripes</option>
-<option value="spots">Spots</option>
-<option value="calico">Calico</option>
+<option>none</option>
+<option>stripes</option>
+<option>spots</option>
+<option>calico</option>
 </select>
 
 <button onclick="saveAvatar()">Save Avatar</button>
@@ -383,34 +503,40 @@ Keep me signed in
 </div>
 </div>
 
-<!-- CHAT -->
-<div id="chat" class="page">
-<div class="card">
-<h2>Class Chat</h2>
-
-<div class="chatBox" id="chatBox"></div>
-
-<input id="chatInput" placeholder="Say something">
-<button onclick="sendMsg()">Send</button>
-
-</div>
 </div>
 
-<footer>CHAT School</footer>
+<footer>CHAT School 🌸</footer>
 
 <script>
 let currentUser="";
 let currentCode="";
+let isTeacher=false;
 
-/* LOGIN */
+const colors={
+green:"rgb(12,74,0)",
+blue:"rgb(133,191,255)",
+amber:"rgb(255,176,0)",
+black:"rgb(0,0,0)",
+white:"rgb(255,255,255)",
+grey:"rgb(136,136,136)",
+brown:"rgb(94,65,0)",
+tan:"rgb(228,219,196)"
+};
+
+function c(x){return colors[x]||x;}
+
 function login(){
-
 currentUser=user.value.trim();
 currentCode=classCode.value.trim();
 
-if(currentUser=="" || currentCode==""){
+if(currentUser==""||currentCode==""){
 alert("Fill all boxes");
 return;
+}
+
+if(currentUser=="Ms. Crossman-Flouty" && pw.value=="Daisy12321"){
+isTeacher=true;
+adminBtn.style.display="inline-block";
 }
 
 if(remember.checked){
@@ -422,10 +548,14 @@ localStorage.setItem("remember","yes");
 loginPage.style.display="none";
 site.style.display="block";
 
-welcome.innerText="Welcome "+currentUser+" | Class "+currentCode;
+welcome.innerText="Welcome "+currentUser+" | "+currentCode;
+profileName.innerText=currentUser;
+profileClass.innerText="Class Code: "+currentCode;
 
-loadAvatar();
+loadAssignments();
 loadChat();
+loadAvatar();
+loadProfile();
 }
 
 window.onload=function(){
@@ -444,11 +574,83 @@ document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
 document.getElementById(id).classList.add("show");
 }
 
-/* AVATAR */
-function saveAvatar(){
+/* profile */
+function editField(type){
+let now=localStorage.getItem(currentUser+"_"+type)||"";
+let val=prompt("Enter "+type+":",now);
+if(val!==null){
+localStorage.setItem(currentUser+"_"+type,val);
+loadProfile();
+}
+}
 
+function loadProfile(){
+ageText.innerText=localStorage.getItem(currentUser+"_age")||"Not set";
+colorText.innerText=localStorage.getItem(currentUser+"_color")||"Not set";
+animalText.innerText=localStorage.getItem(currentUser+"_animal")||"Not set";
+subjectText.innerText=localStorage.getItem(currentUser+"_subject")||"Not set";
+}
+
+/* chat */
+function sendMsg(){
+let t=chatInput.value.trim();
+if(t=="")return;
+
+let list=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
+list.push({name:currentUser,text:t});
+localStorage.setItem("chat_"+currentCode,JSON.stringify(list));
+chatInput.value="";
+loadChat();
+}
+
+function loadChat(){
+let list=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
+chatBox.innerHTML="";
+list.forEach(m=>{
+chatBox.innerHTML+=`<div class="msg"><b>${m.name}</b>: ${m.text}</div>`;
+});
+}
+
+/* assignments */
+function postAssignment(){
+if(!isTeacher)return;
+
+let list=JSON.parse(localStorage.getItem("assign_"+currentCode))||[];
+list.push({title:assignTitle.value,text:assignText.value});
+localStorage.setItem("assign_"+currentCode,JSON.stringify(list));
+loadAssignments();
+}
+
+function loadAssignments(){
+let list=JSON.parse(localStorage.getItem("assign_"+currentCode))||[];
+assignList.innerHTML="";
+list.forEach(a=>{
+assignList.innerHTML+=`<div class="assignment"><b>${a.title}</b><br>${a.text}</div>`;
+});
+}
+
+function clearAssignments(){
+localStorage.removeItem("assign_"+currentCode);
+loadAssignments();
+}
+
+function postAnnouncement(){
+if(!isTeacher)return;
+
+let list=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
+list.push({name:"Teacher",text:announceText.value});
+localStorage.setItem("chat_"+currentCode,JSON.stringify(list));
+loadChat();
+}
+
+function clearChat(){
+localStorage.removeItem("chat_"+currentCode);
+loadChat();
+}
+
+/* avatar */
+function saveAvatar(){
 let data={
-preset:preset.value,
 eyes:eyeColor.value,
 fur:furColor.value,
 paws:pawColor.value,
@@ -457,15 +659,12 @@ ears:earColor.value,
 tail:tailColor.value,
 pattern:pattern.value
 };
-
 localStorage.setItem("avatar_"+currentUser,JSON.stringify(data));
 loadAvatar();
 }
 
 function loadAvatar(){
-
 let d=JSON.parse(localStorage.getItem("avatar_"+currentUser))||{
-preset:"none",
 eyes:"green",
 fur:"white",
 paws:"white",
@@ -475,109 +674,61 @@ tail:"white",
 pattern:"none"
 };
 
-/* PRESETS */
-if(d.preset=="siamese"){
-d.eyes="blue";
-d.fur="tan";
-d.paws="grey";
-d.ears="grey";
-d.tail="grey";
-d.pattern="none";
-}
-
-if(d.preset=="calico"){
-d.eyes="green";
-d.fur="white";
-d.paws="white";
-d.ears="white";
-d.tail="white";
-d.pattern="calico";
-}
-
-if(d.preset=="tabby"){
-d.eyes="amber";
-d.fur="brown";
-d.paws="brown";
-d.ears="brown";
-d.tail="brown";
-d.pattern="stripes";
-}
-
-/* base */
-bodyPart.style.background=d.fur;
-headPart.style.background=d.fur;
-
-paw1.style.background=d.paws;
-paw2.style.background=d.paws;
-
-earL.style.background=d.ears;
-earR.style.background=d.ears;
-
-tail.style.background=d.tail;
+headPart.style.background=c(d.fur);
+bodyPart.style.background=c(d.fur);
+paw1.style.background=c(d.paws);
+paw2.style.background=c(d.paws);
+earL.style.background=c(d.ears);
+earR.style.background=c(d.ears);
+tail.style.background=c(d.tail);
 tail.style.width=d.tailLen+"px";
+eye1.style.background=c(d.eyes);
+eye2.style.background=c(d.eyes);
 
-eye1.style.background=d.eyes;
-eye2.style.background=d.eyes;
-
-/* patterns */
 if(d.pattern=="stripes"){
 bodyPart.style.background=
-"repeating-linear-gradient(90deg,"+d.fur+" 0 12px, black 12px 18px)";
+`repeating-linear-gradient(
+75deg,
+${c(d.fur)} 0px,
+${c(d.fur)} 14px,
+rgba(0,0,0,.72) 14px,
+rgba(0,0,0,.72) 18px,
+${c(d.fur)} 18px,
+${c(d.fur)} 28px)`;
+
 headPart.style.background=
-"repeating-linear-gradient(90deg,"+d.fur+" 0 12px, black 12px 18px)";
+`repeating-linear-gradient(
+60deg,
+${c(d.fur)} 0px,
+${c(d.fur)} 10px,
+rgba(0,0,0,.72) 10px,
+rgba(0,0,0,.72) 14px,
+${c(d.fur)} 14px,
+${c(d.fur)} 22px)`;
 }
 
 if(d.pattern=="spots"){
 bodyPart.style.background=
-"radial-gradient(circle at 30% 30%, black 0 10px, transparent 11px),"+
-"radial-gradient(circle at 70% 65%, black 0 10px, transparent 11px),"+d.fur;
+`radial-gradient(circle at 30% 30%,#000 0 10px,transparent 11px),
+radial-gradient(circle at 70% 60%,#000 0 10px,transparent 11px),
+${c(d.fur)}`;
 
 headPart.style.background=
-"radial-gradient(circle at 45% 35%, black 0 10px, transparent 11px),"+d.fur;
+`radial-gradient(circle at 40% 40%,#000 0 10px,transparent 11px),
+${c(d.fur)}`;
 }
 
 if(d.pattern=="calico"){
 bodyPart.style.background=
-"radial-gradient(circle at 25% 25%, orange 0 18px, transparent 19px),"+
-"radial-gradient(circle at 70% 60%, black 0 18px, transparent 19px),white";
+`radial-gradient(circle at 25% 25%,orange 0 18px,transparent 19px),
+radial-gradient(circle at 70% 60%,#000 0 18px,transparent 19px),
+#fff`;
 
 headPart.style.background=
-"radial-gradient(circle at 35% 35%, orange 0 18px, transparent 19px),"+
-"radial-gradient(circle at 65% 55%, black 0 18px, transparent 19px),white";
+`radial-gradient(circle at 30% 30%,orange 0 18px,transparent 19px),
+radial-gradient(circle at 65% 55%,#000 0 18px,transparent 19px),
+#fff`;
 }
-}
-
-/* CHAT */
-function sendMsg(){
-
-let txt=chatInput.value.trim();
-if(txt=="") return;
-
-let msgs=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
-
-msgs.push({
-name:currentUser,
-text:txt
-});
-
-localStorage.setItem("chat_"+currentCode,JSON.stringify(msgs));
-
-chatInput.value="";
-loadChat();
-}
-
-function loadChat(){
-
-let msgs=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
-
-chatBox.innerHTML="";
-
-msgs.forEach(m=>{
-chatBox.innerHTML+=`
-<div class="msg"><b>${m.name}</b>: ${m.text}</div>
-`;
-});
-
 }
 </script>
 
