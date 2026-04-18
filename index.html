@@ -4,150 +4,368 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C.H.A.T. Academy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-body{
+*{
 margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#ffd6ec,#d6f0ff,#eadcff);
-text-align:center;
-color:#444;
+padding:0;
+box-sizing:border-box;
 }
+
+body{
+font-family:'Fredoka',sans-serif;
+background:linear-gradient(135deg,#ffd6ec,#d6f0ff,#eadcff,#fff6b7);
+color:#000;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* CLOUDS */
+.cloud{
+position:fixed;
+font-size:55px;
+opacity:.7;
+pointer-events:none;
+z-index:0;
+animation:float 8s ease-in-out infinite;
+}
+
+.c1{top:20px;left:10px;}
+.c2{top:120px;right:20px;}
+.c3{bottom:60px;left:20px;}
+.c4{bottom:100px;right:10px;}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
+
 header{
+background:white;
 padding:25px;
-background:#ffffffcc;
+text-align:center;
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+border-bottom:5px solid #ffd6ec;
+position:relative;
+z-index:2;
 }
+
+header h1{
+font-size:42px;
+}
+
+header p{
+margin-top:5px;
+}
+
+nav{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+padding:15px;
+position:relative;
+z-index:2;
+}
+
+nav button{
+padding:10px 18px;
+border:none;
+border-radius:16px;
+background:#ffb6d9;
+font-family:'Fredoka',sans-serif;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+nav button:hover{
+transform:scale(1.05);
+}
+
+.page{
+display:none;
+padding:20px;
+max-width:1000px;
+margin:auto;
+position:relative;
+z-index:2;
+}
+
+.show{
+display:block;
+}
+
 .card{
 background:white;
-max-width:900px;
-margin:20px auto;
-padding:20px;
-border-radius:20px;
-box-shadow:0 8px 18px rgba(0,0,0,.08);
+padding:22px;
+border-radius:24px;
+margin-bottom:20px;
+box-shadow:0 10px 20px rgba(0,0,0,.08);
 }
-input,button,textarea{
-padding:10px;
-margin:8px;
-border-radius:12px;
+
+input,textarea{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:14px;
 border:1px solid #ccc;
-width:80%;
-max-width:320px;
+font-family:'Fredoka',sans-serif;
+font-size:16px;
 }
-button{
+
+button.action{
+margin-top:10px;
+padding:10px 16px;
+border:none;
+border-radius:14px;
 background:#b8e1ff;
+font-family:'Fredoka',sans-serif;
 font-weight:bold;
 cursor:pointer;
 }
-.hidden{display:none;}
-.msg{
-background:#f7f7ff;
-padding:8px;
-margin:6px;
-border-radius:12px;
-text-align:left;
+
+button.action:hover{
+transform:scale(1.03);
+}
+
+li{
+list-style:none;
+padding:12px;
+margin:10px 0;
+background:#f8f8ff;
+border-radius:14px;
+}
+
+.smallBtn{
+padding:6px 10px;
+margin-left:6px;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.editBtn{background:#fff0a8;}
+.delBtn{background:#ffb5b5;}
+
+.chatMsg{
+padding:10px;
+background:#eef7ff;
+border-radius:14px;
+margin:8px 0;
+}
+
+footer{
+text-align:center;
+padding:20px;
+font-size:14px;
+position:relative;
+z-index:2;
 }
 </style>
 </head>
 <body>
 
+<!-- CUTE CLOUDS -->
+<div class="cloud c1">☁️</div>
+<div class="cloud c2">☁️</div>
+<div class="cloud c3">☁️</div>
+<div class="cloud c4">☁️</div>
+
+<!-- EASY TEACHER EDIT AREA -->
+<script>
+let teacherAssignments = [
+"test",
+"Read chapter 7 by Friday",
+"Science project due Monday"
+];
+</script>
+
 <header>
-<h1>C.H.A.T.</h1>
+<h1>🌸 C.H.A.T. 🌸</h1>
 <p>Chill Happy and Triumphant</p>
 <p><i>Feles laeta est feles triumphans</i></p>
 </header>
 
-<div class="card" id="loginBox">
-<h2>Enter School</h2>
-<input id="nick" placeholder="Nickname or Admin Name">
-<br>
-<input id="pw" placeholder="Password (admin only)">
-<br>
+<!-- LOGIN -->
+<div id="loginPage" class="page show">
+<div class="card">
+<h2>✨ Enter School ✨</h2>
+
+<input id="user" placeholder="Username">
+<input id="pw" placeholder="Password (teacher only)">
 <input id="room" placeholder="Class Code">
-<br>
-<button onclick="login()">Join</button>
+
+<button class="action" onclick="login()">Join School</button>
+</div>
 </div>
 
-<div id="app" class="hidden">
+<!-- WEBSITE -->
+<div id="mainSite" style="display:none;">
 
+<nav>
+<button onclick="openPage('home')">Home</button>
+<button onclick="openPage('assignments')">Assignments</button>
+<button onclick="openPage('schedule')">Schedule</button>
+<button onclick="openPage('chat')">Chat</button>
+<button onclick="openPage('about')">About</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page show">
 <div class="card">
 <h2 id="welcome"></h2>
+<p>Welcome to the cutest school website ever 🌸✨☁️</p>
+</div>
 </div>
 
+<!-- ASSIGNMENTS -->
+<div id="assignments" class="page">
 <div class="card">
-<h2>📌 Assignments</h2>
-<ul id="assignments">
+<h2>📚 Assignments</h2>
+<ul id="taskList"></ul>
+
+<div id="adminTools" style="display:none;">
+<h3>👑 Teacher Tools</h3>
+<p>Edit code at top to update for everyone.</p>
+</div>
+
+</div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="schedule" class="page">
+<div class="card">
+<h2>🗓 Schedule</h2>
+<ul>
+<li>9:00 Math</li>
+<li>10:00 English</li>
+<li>11:00 Science</li>
+<li>1:00 History</li>
+<li>2:00 Free Study</li>
 </ul>
 </div>
-
-<div class="card hidden" id="adminPanel">
-<h2>👑 Admin Panel</h2>
-<textarea id="newTask" placeholder="New assignment"></textarea>
-<br>
-<button onclick="addTask()">Add Assignment</button>
 </div>
 
+<!-- CHAT -->
+<div id="chat" class="page">
 <div class="card">
-<h2>💬 Chat</h2>
+<h2>💬 Chat Room</h2>
 <div id="chatBox"></div>
-<input id="chatInput" placeholder="Say something">
-<br>
-<button onclick="sendMsg()">Send</button>
+<input id="chatInput" placeholder="Say something nice...">
+<button class="action" onclick="sendMsg()">Send</button>
 </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page">
+<div class="card">
+<h2>🌈 About</h2>
+<p>C.H.A.T. Academy is where smart cats learn big things.</p>
+</div>
+</div>
+
+<footer>C.H.A.T. Academy ✨</footer>
 
 </div>
 
 <script>
-let user="";
-let room="";
+let currentUser="";
+let admin=false;
 
-function key(){ return "room_"+room; }
-
+/* LOGIN */
 function login(){
-user=document.getElementById("nick").value.trim();
+
+currentUser=document.getElementById("user").value.trim();
 let pw=document.getElementById("pw").value.trim();
-room=document.getElementById("room").value.trim();
 
-if(user=="" || room==""){ alert("Fill boxes"); return; }
-
-document.getElementById("loginBox").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
-document.getElementById("welcome").innerText="Welcome " + user + "!";
-
-if(user==="Ms. Crossman-Flouty" && pw==="Daisy12321"){
-document.getElementById("adminPanel").classList.remove("hidden");
-document.getElementById("welcome").innerText="👑 Welcome Admin!";
+if(currentUser==""){
+alert("Enter username!");
+return;
 }
 
-loadMsgs();
+/* stay logged in after refresh */
+localStorage.setItem("savedUser",currentUser);
+
+/* admin */
+if(currentUser==="Ms. Crossman-Flouty" && pw==="Daisy12321"){
+admin=true;
+localStorage.setItem("savedAdmin","yes");
+document.getElementById("adminTools").style.display="block";
+}else{
+localStorage.setItem("savedAdmin","no");
 }
 
-function sendMsg(){
-let text=document.getElementById("chatInput").value.trim();
-if(text=="") return;
+/* open site */
+document.getElementById("loginPage").style.display="none";
+document.getElementById("mainSite").style.display="block";
 
-let msgs=JSON.parse(localStorage.getItem(key()) || "[]");
-msgs.push(user + ": " + text);
-localStorage.setItem(key(), JSON.stringify(msgs));
+document.getElementById("welcome").innerText =
+"Welcome, " + currentUser + "!";
 
-document.getElementById("chatInput").value="";
-loadMsgs();
+loadTasks();
+loadChat();
 }
 
-function loadMsgs(){
-let msgs=JSON.parse(localStorage.getItem(key()) || "[]");
-let box=document.getElementById("chatBox");
+/* refresh stays signed in */
+window.onload=function(){
+
+let savedUser=localStorage.getItem("savedUser");
+
+if(savedUser){
+document.getElementById("user").value=savedUser;
+
+if(localStorage.getItem("savedAdmin")=="yes"){
+document.getElementById("pw").value="Daisy12321";
+}
+
+login();
+}
+}
+
+/* pages */
+function openPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+document.getElementById(id).classList.add("show");
+}
+
+/* assignments */
+function loadTasks(){
+let box=document.getElementById("taskList");
 box.innerHTML="";
-msgs.forEach(m=>{
-box.innerHTML += "<div class='msg'>"+m+"</div>";
+
+teacherAssignments.forEach(task=>{
+box.innerHTML += "<li>"+task+"</li>";
 });
 }
 
-function addTask(){
-let task=document.getElementById("newTask").value.trim();
-if(task=="") return;
+/* chat */
+function loadChat(){
+let msgs=JSON.parse(localStorage.getItem("chatmsgs")) || [];
+let box=document.getElementById("chatBox");
+box.innerHTML="";
 
-let ul=document.getElementById("assignments");
-ul.innerHTML += "<li>"+task+"</li>";
-document.getElementById("newTask").value="";
+msgs.forEach(m=>{
+box.innerHTML += `<div class="chatMsg">${m}</div>`;
+});
+}
+
+function sendMsg(){
+
+let txt=document.getElementById("chatInput").value.trim();
+if(txt=="") return;
+
+let msgs=JSON.parse(localStorage.getItem("chatmsgs")) || [];
+msgs.push(currentUser + ": " + txt);
+
+localStorage.setItem("chatmsgs",JSON.stringify(msgs));
+
+document.getElementById("chatInput").value="";
+loadChat();
 }
 </script>
 
