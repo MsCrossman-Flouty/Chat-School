@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C.H.A.T. Academy Final</title>
+<title>CHAT School</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
@@ -16,28 +16,27 @@ box-sizing:border-box;
 
 body{
 font-family:'Fredoka',sans-serif;
-background:linear-gradient(135deg,#ffd6ec,#d6f0ff,#eadcff,#fff8c4);
+background:linear-gradient(135deg,#ffdff0,#dff6ff,#f3e3ff,#fff9cc);
 min-height:100vh;
 overflow-x:hidden;
 color:#000;
 }
 
-/* CLOUDS */
+/* clouds */
 .cloud{
 position:fixed;
 font-size:70px;
 opacity:.95;
-z-index:0;
 pointer-events:none;
-animation:float 7s ease-in-out infinite;
+animation:float 6s ease-in-out infinite;
+z-index:0;
 }
 
 .c1{top:10px;left:10px;}
 .c2{top:80px;right:20px;}
-.c3{top:260px;left:20px;}
-.c4{bottom:180px;right:20px;}
-.c5{bottom:30px;left:100px;}
-.c6{bottom:50px;right:130px;}
+.c3{top:250px;left:25px;}
+.c4{bottom:180px;right:25px;}
+.c5{bottom:30px;left:90px;}
 
 @keyframes float{
 0%{transform:translateY(0);}
@@ -45,28 +44,11 @@ animation:float 7s ease-in-out infinite;
 100%{transform:translateY(0);}
 }
 
-.sparkle{
-position:fixed;
-font-size:25px;
-animation:spin 5s linear infinite;
-pointer-events:none;
-z-index:0;
-}
-
-.s1{top:160px;right:100px;}
-.s2{bottom:250px;left:120px;}
-.s3{top:400px;left:40px;}
-
-@keyframes spin{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
 header{
-background:white;
-padding:25px;
+background:#fff;
+padding:24px;
 text-align:center;
-box-shadow:0 8px 18px rgba(0,0,0,.08);
+box-shadow:0 8px 20px rgba(0,0,0,.08);
 position:relative;
 z-index:2;
 }
@@ -78,11 +60,15 @@ font-size:42px;
 .page{
 display:none;
 padding:20px;
-max-width:1000px;
+max-width:950px;
 margin:auto;
 position:relative;
 z-index:2;
-animation:fade .4s;
+animation:fade .35s;
+}
+
+.show{
+display:block;
 }
 
 @keyframes fade{
@@ -90,16 +76,38 @@ from{opacity:0;transform:translateY(15px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-.show{
-display:block;
-}
-
 .card{
-background:white;
+background:#fff;
 padding:22px;
 border-radius:24px;
-margin-bottom:20px;
 box-shadow:0 10px 20px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:12px;
+border-radius:14px;
+border:1px solid #ccc;
+font-size:16px;
+font-family:'Fredoka',sans-serif;
+}
+
+button{
+border:none;
+padding:12px 18px;
+border-radius:16px;
+cursor:pointer;
+font-family:'Fredoka',sans-serif;
+font-weight:bold;
+background:linear-gradient(135deg,#ffd6ec,#ffc2f1);
+margin-top:12px;
+transition:.2s;
+}
+
+button:hover{
+transform:scale(1.05);
 }
 
 nav{
@@ -110,52 +118,19 @@ flex-wrap:wrap;
 padding:15px;
 }
 
-nav button,
-.action{
-border:none;
-padding:11px 18px;
-border-radius:16px;
-font-family:'Fredoka',sans-serif;
-font-weight:bold;
-cursor:pointer;
-background:linear-gradient(135deg,#ffd6ec,#ffc3ef);
-transition:.2s;
-}
-
-nav button:hover,
-.action:hover{
-transform:scale(1.06);
-}
-
-input,select{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:14px;
-border:1px solid #ccc;
-font-family:'Fredoka',sans-serif;
-font-size:16px;
-}
-
 li{
 list-style:none;
 padding:12px;
 margin:10px 0;
-background:#f8f8ff;
+background:#f7f8ff;
 border-radius:14px;
 }
 
-.profile{
-text-align:center;
-font-size:20px;
-line-height:1.8;
-}
-
-.gradeBox{
-padding:14px;
-background:#eef7ff;
-border-radius:16px;
-margin-top:12px;
+.grade{
+padding:12px;
+background:#eef8ff;
+border-radius:14px;
+margin-top:10px;
 }
 
 footer{
@@ -167,21 +142,15 @@ font-size:14px;
 </head>
 <body>
 
-<!-- Cute Decorations -->
 <div class="cloud c1">☁️</div>
 <div class="cloud c2">☁️</div>
 <div class="cloud c3">☁️</div>
 <div class="cloud c4">☁️</div>
 <div class="cloud c5">☁️</div>
-<div class="cloud c6">☁️</div>
-
-<div class="sparkle s1">✨</div>
-<div class="sparkle s2">🌸</div>
-<div class="sparkle s3">⭐</div>
 
 <header>
-<h1>🌸 C.H.A.T. Academy 🌸</h1>
-<p>Final Version</p>
+<h1>🌸 CHAT School 🌸</h1>
+<p>Cute Final Version</p>
 </header>
 
 <!-- LOGIN -->
@@ -190,32 +159,26 @@ font-size:14px;
 <h2>✨ Login ✨</h2>
 
 <input id="user" placeholder="Username">
-
 <input id="pw" placeholder="Password (optional)">
-
-<select id="grade">
-<option>Grade 4</option>
-<option>Grade 5</option>
-<option>Grade 6</option>
-<option>Teacher</option>
-</select>
+<input id="classCode" placeholder="Enter Class Code">
 
 <label style="display:block;margin-top:12px;">
-<input type="checkbox" id="remember"> Keep me signed in
+<input type="checkbox" id="remember">
+Keep me signed in
 </label>
 
-<button class="action" onclick="login()">Enter School</button>
+<button onclick="login()">Enter School</button>
 </div>
 </div>
 
-<!-- MAIN SITE -->
+<!-- WEBSITE -->
 <div id="site" style="display:none;">
 
 <nav>
 <button onclick="openPage('home')">Home</button>
-<button onclick="openPage('profilePage')">Profile</button>
+<button onclick="openPage('profile')">Profile</button>
 <button onclick="openPage('assignments')">Assignments</button>
-<button onclick="openPage('gradesPage')">Grades</button>
+<button onclick="openPage('grades')">Grades</button>
 <button onclick="logout()">Logout</button>
 </nav>
 
@@ -223,15 +186,15 @@ font-size:14px;
 <div id="home" class="page show">
 <div class="card">
 <h2 id="welcome"></h2>
-<p>Welcome to the cutest school website ever 💖</p>
+<p>Everyone who enters any class code gets here 😎</p>
 </div>
 </div>
 
 <!-- PROFILE -->
-<div id="profilePage" class="page">
+<div id="profile" class="page">
 <div class="card">
 <h2>👤 Student Profile</h2>
-<div id="profileBox" class="profile"></div>
+<div id="profileBox"></div>
 </div>
 </div>
 
@@ -240,136 +203,87 @@ font-size:14px;
 <div class="card">
 <h2>📚 Assignments</h2>
 <ul>
-<li>Math Homework Page 12</li>
-<li>Read Chapter 7</li>
-<li>Science Project Friday</li>
+<li>Math worksheet page 12</li>
+<li>Read chapter 7 tonight</li>
+<li>Science project due Friday</li>
 </ul>
 </div>
 </div>
 
 <!-- GRADES -->
-<div id="gradesPage" class="page">
+<div id="grades" class="page">
 <div class="card">
 <h2>🎓 Grades</h2>
-<div id="gradesBox"></div>
+<div class="grade">Math: 95%</div>
+<div class="grade">Reading: 91%</div>
+<div class="grade">Science: 97%</div>
 </div>
 </div>
 
-<footer>C.H.A.T. Academy ✨</footer>
+<footer>CHAT School ✨</footer>
 
 </div>
 
 <script>
 let currentUser="";
-let currentGrade="";
+let currentCode="";
 
 function login(){
 
 currentUser=document.getElementById("user").value.trim();
-currentGrade=document.getElementById("grade").value;
-let pw=document.getElementById("pw").value.trim();
+currentCode=document.getElementById("classCode").value.trim();
 
 if(currentUser==""){
-alert("Enter username!");
+alert("Enter username");
 return;
 }
 
-/* Teacher Password */
-if(currentGrade=="Teacher" && pw!="Daisy12321"){
-alert("Wrong teacher password!");
+if(currentCode==""){
+alert("Enter class code");
 return;
 }
 
-/* Remember Me */
+/* password optional */
+
+/* remember me */
 if(document.getElementById("remember").checked){
 localStorage.setItem("savedUser",currentUser);
-localStorage.setItem("savedGrade",currentGrade);
+localStorage.setItem("savedCode",currentCode);
 }else{
 localStorage.removeItem("savedUser");
-localStorage.removeItem("savedGrade");
+localStorage.removeItem("savedCode");
 }
 
 document.getElementById("loginPage").style.display="none";
 document.getElementById("site").style.display="block";
 
 document.getElementById("welcome").innerText=
-"Welcome " + currentUser + "!";
-
-loadProfile();
-loadGrades();
-}
-
-function loadProfile(){
-
-let emoji="🎒";
-
-if(currentGrade=="Grade 4") emoji="🧸";
-if(currentGrade=="Grade 5") emoji="🌸";
-if(currentGrade=="Grade 6") emoji="⭐";
-if(currentGrade=="Teacher") emoji="👑";
+"Welcome " + currentUser + "! Joined class: " + currentCode;
 
 document.getElementById("profileBox").innerHTML=
-emoji + "<br><b>" + currentUser + "</b><br>" +
-currentGrade + "<br>Favorite Subject: Art";
-}
-
-function loadGrades(){
-
-let text="";
-
-if(currentGrade=="Grade 4"){
-text=`
-<div class="gradeBox">Math: 95%</div>
-<div class="gradeBox">Reading: 92%</div>
-<div class="gradeBox">Science: 97%</div>`;
-}
-
-if(currentGrade=="Grade 5"){
-text=`
-<div class="gradeBox">Math: 88%</div>
-<div class="gradeBox">Reading: 94%</div>
-<div class="gradeBox">Science: 91%</div>`;
-}
-
-if(currentGrade=="Grade 6"){
-text=`
-<div class="gradeBox">Math: 90%</div>
-<div class="gradeBox">Reading: 89%</div>
-<div class="gradeBox">Science: 93%</div>`;
-}
-
-if(currentGrade=="Teacher"){
-text=`
-<div class="gradeBox">👑 Teacher Dashboard</div>
-<div class="gradeBox">All Grades Visible</div>`;
-}
-
-document.getElementById("gradesBox").innerHTML=text;
+"🌸 <b>" + currentUser + "</b><br>Class Code: " + currentCode + "<br>Favorite Subject: Art";
 }
 
 function openPage(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+document.querySelectorAll(".page").forEach(page=>page.classList.remove("show"));
 document.getElementById(id).classList.add("show");
 }
 
 function logout(){
 localStorage.removeItem("savedUser");
-localStorage.removeItem("savedGrade");
+localStorage.removeItem("savedCode");
 location.reload();
 }
 
-/* Auto Login */
 window.onload=function(){
 
 let savedUser=localStorage.getItem("savedUser");
-let savedGrade=localStorage.getItem("savedGrade");
+let savedCode=localStorage.getItem("savedCode");
 
-if(savedUser && savedGrade){
-
+if(savedUser && savedCode){
 document.getElementById("user").value=savedUser;
-document.getElementById("grade").value=savedGrade;
+document.getElementById("classCode").value=savedCode;
 document.getElementById("remember").checked=true;
-
 login();
 }
 }
