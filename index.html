@@ -604,6 +604,9 @@ loadChat();
 }
 
 function loadChat(){
+  chatBox.innerHTML += `
+<div class="msg"><b>Teacher</b>: Welcome class!</div>
+`;
 let list=JSON.parse(localStorage.getItem("chat_"+currentCode))||[];
 chatBox.innerHTML="";
 list.forEach(m=>{
@@ -622,7 +625,10 @@ loadAssignments();
 }
 
 function loadAssignments(){
-let list=JSON.parse(localStorage.getItem("assign_"+currentCode))||[];
+let list = [
+ {title:"Math Homework", text:"Page 22 #1-10"},
+ {title:"Science", text:"Study planets"}
+];;
 assignList.innerHTML="";
 list.forEach(a=>{
 assignList.innerHTML+=`<div class="assignment"><b>${a.title}</b><br>${a.text}</div>`;
