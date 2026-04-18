@@ -3,49 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>CHAT School</title>
 
-<!-- FAVICON -->
 <link rel="icon" type="image/png" href="favicon.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 font-family:'Fredoka',sans-serif;
 background:linear-gradient(135deg,#ffdff0,#dff6ff,#f3e3ff,#fff9cc);
 min-height:100vh;
-overflow-x:hidden;
-color:#000;
-}
-
-/* Clouds */
-.cloud{
-position:fixed;
-font-size:70px;
-opacity:.95;
-pointer-events:none;
-animation:float 6s ease-in-out infinite;
-z-index:0;
-}
-
-.c1{top:10px;left:10px;}
-.c2{top:70px;right:20px;}
-.c3{top:260px;left:20px;}
-.c4{bottom:170px;right:20px;}
-.c5{bottom:40px;left:90px;}
-
-@keyframes float{
-0%{transform:translateY(0);}
-50%{transform:translateY(-12px);}
-100%{transform:translateY(0);}
+color:#222;
 }
 
 header{
@@ -53,55 +23,40 @@ background:white;
 padding:25px;
 text-align:center;
 box-shadow:0 8px 18px rgba(0,0,0,.08);
-position:relative;
-z-index:2;
 }
 
-header h1{
-font-size:42px;
-}
+header h1{font-size:42px;}
 
 header p{
 margin-top:8px;
-font-size:18px;
-color:#444;
+color:#555;
 }
 
 .page{
 display:none;
-padding:20px;
 max-width:950px;
 margin:auto;
-position:relative;
-z-index:2;
-animation:fade .35s;
+padding:20px;
 }
 
-.show{
-display:block;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(15px);}
-to{opacity:1;transform:translateY(0);}
-}
+.show{display:block;}
 
 .card{
 background:white;
-padding:22px;
+padding:24px;
 border-radius:24px;
 box-shadow:0 10px 20px rgba(0,0,0,.08);
 margin-bottom:20px;
 }
 
-input{
+input,select{
 width:100%;
 padding:12px;
 margin-top:12px;
 border-radius:14px;
 border:1px solid #ccc;
-font-size:16px;
 font-family:'Fredoka',sans-serif;
+font-size:16px;
 }
 
 button{
@@ -113,11 +68,6 @@ font-family:'Fredoka',sans-serif;
 font-weight:bold;
 background:linear-gradient(135deg,#ffd6ec,#ffc2f1);
 margin-top:12px;
-transition:.2s;
-}
-
-button:hover{
-transform:scale(1.05);
 }
 
 nav{
@@ -128,39 +78,42 @@ flex-wrap:wrap;
 padding:15px;
 }
 
-li{
-list-style:none;
-padding:12px;
+.avatar{
+font-size:55px;
+text-align:center;
 margin:10px 0;
-background:#f8f8ff;
-border-radius:14px;
 }
 
-.grade{
-padding:12px;
-margin-top:10px;
-background:#eef7ff;
-border-radius:14px;
+.chatBox{
+height:250px;
+overflow:auto;
+background:#f8f8ff;
+padding:10px;
+border-radius:16px;
+margin-bottom:10px;
+}
+
+.msg{
+padding:8px;
+margin:6px 0;
+background:white;
+border-radius:12px;
+}
+
+.centerCheck{
+text-align:center;
+margin-top:14px;
 }
 
 footer{
 text-align:center;
 padding:20px;
-font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Clouds -->
-<div class="cloud c1">☁️</div>
-<div class="cloud c2">☁️</div>
-<div class="cloud c3">☁️</div>
-<div class="cloud c4">☁️</div>
-<div class="cloud c5">☁️</div>
-
-<!-- HEADER -->
 <header>
 <h1>🌸 CHAT School 🌸</h1>
 <p>Feles laeta est feles triumphans</p>
@@ -169,29 +122,32 @@ font-size:14px;
 <!-- LOGIN -->
 <div id="loginPage" class="page show">
 <div class="card">
+
 <h2>✨ Login ✨</h2>
 
 <input id="user" placeholder="Username">
-<input id="pw" placeholder="Password (optional)">
-<input id="classCode" placeholder="Enter Class Code">
+<input id="pw" placeholder="Password">
+<input id="classCode" placeholder="Class Code">
 
-<label style="display:block;margin-top:12px;">
+<div class="centerCheck">
+<label>
 <input type="checkbox" id="remember">
 Keep me signed in
 </label>
+</div>
 
 <button onclick="login()">Enter School</button>
+
 </div>
 </div>
 
-<!-- MAIN WEBSITE -->
+<!-- SITE -->
 <div id="site" style="display:none;">
 
 <nav>
 <button onclick="openPage('home')">Home</button>
 <button onclick="openPage('profile')">Profile</button>
-<button onclick="openPage('assignments')">Assignments</button>
-<button onclick="openPage('grades')">Grades</button>
+<button onclick="openPage('chat')">Chat</button>
 <button onclick="logout()">Logout</button>
 </nav>
 
@@ -199,37 +155,73 @@ Keep me signed in
 <div id="home" class="page show">
 <div class="card">
 <h2 id="welcome"></h2>
-<p>Welcome to the cutest classroom ever ✨</p>
+<p>Welcome to CHAT School ✨</p>
 </div>
 </div>
 
 <!-- PROFILE -->
 <div id="profile" class="page">
 <div class="card">
-<h2>👤 Profile</h2>
-<div id="profileBox"></div>
+
+<h2>👤 Edit Profile</h2>
+
+<div class="avatar" id="avatarPreview">🐱</div>
+
+<select id="breed">
+<option>Cat</option>
+<option>Fluffy Cat</option>
+<option>Round Cat</option>
+<option>Sleepy Cat</option>
+</select>
+
+<select id="color1">
+<option>White</option>
+<option>Black</option>
+<option>Orange</option>
+<option>Gray</option>
+<option>Pink</option>
+</select>
+
+<select id="color2">
+<option>None</option>
+<option>White</option>
+<option>Black</option>
+<option>Orange</option>
+<option>Gray</option>
+<option>Pink</option>
+</select>
+
+<select id="fur">
+<option>Short Fur</option>
+<option>Medium Fur</option>
+<option>Long Fur</option>
+</select>
+
+<select id="eyes">
+<option>Blue Eyes</option>
+<option>Green Eyes</option>
+<option>Brown Eyes</option>
+<option>Purple Eyes</option>
+</select>
+
+<button onclick="saveProfile()">Save Avatar</button>
+
+<div id="profileInfo" style="margin-top:14px;"></div>
+
 </div>
 </div>
 
-<!-- ASSIGNMENTS -->
-<div id="assignments" class="page">
+<!-- CHAT -->
+<div id="chat" class="page">
 <div class="card">
-<h2>📚 Assignments</h2>
-<ul>
-<li>Math worksheet page 12</li>
-<li>Read chapter 7</li>
-<li>Science project due Friday</li>
-</ul>
-</div>
-</div>
 
-<!-- GRADES -->
-<div id="grades" class="page">
-<div class="card">
-<h2>🎓 Grades</h2>
-<div class="grade">Math: 95%</div>
-<div class="grade">Reading: 92%</div>
-<div class="grade">Science: 97%</div>
+<h2>💬 Class Chat</h2>
+
+<div class="chatBox" id="chatBox"></div>
+
+<input id="chatInput" placeholder="Say something...">
+<button onclick="sendMsg()">Send</button>
+
 </div>
 </div>
 
@@ -240,10 +232,13 @@ Keep me signed in
 <script>
 let currentUser="";
 let currentCode="";
+let avatar="🐱";
 
+/* LOGIN */
 function login(){
 
 currentUser=document.getElementById("user").value.trim();
+let pw=document.getElementById("pw").value.trim();
 currentCode=document.getElementById("classCode").value.trim();
 
 if(currentUser==""){
@@ -256,43 +251,127 @@ alert("Enter class code");
 return;
 }
 
-if(document.getElementById("remember").checked){
+/* ADMIN MODE */
+if(currentUser=="Ms. Crossman-Flouty" && pw=="Daisy12321"){
+currentCode="ADMIN";
+}
+
+/* KEEP SIGNED IN */
+if(document.getElementById("remember").checked"){
 localStorage.setItem("savedUser",currentUser);
+localStorage.setItem("savedPw",pw);
 localStorage.setItem("savedCode",currentCode);
 }else{
 localStorage.removeItem("savedUser");
+localStorage.removeItem("savedPw");
 localStorage.removeItem("savedCode");
 }
 
 document.getElementById("loginPage").style.display="none";
 document.getElementById("site").style.display="block";
 
-document.getElementById("welcome").innerText =
-"Welcome " + currentUser + "! Joined class: " + currentCode;
+let text="Welcome " + currentUser;
 
-document.getElementById("profileBox").innerHTML =
-"🌸 <b>" + currentUser + "</b><br>Class Code: " + currentCode + "<br>Favorite Subject: Art";
+if(currentCode=="ADMIN"){
+text+=" 👑 Admin Mode";
+}else{
+text+=" | Joined: " + currentCode;
 }
 
+document.getElementById("welcome").innerText=text;
+
+loadProfile();
+loadChat();
+}
+
+/* PAGE */
 function openPage(id){
-document.querySelectorAll(".page").forEach(page=>page.classList.remove("show"));
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
 document.getElementById(id).classList.add("show");
 }
 
+/* LOGOUT */
 function logout(){
-localStorage.removeItem("savedUser");
-localStorage.removeItem("savedCode");
+localStorage.clear();
 location.reload();
 }
 
+/* PROFILE */
+function saveProfile(){
+
+let breed=document.getElementById("breed").value;
+let c1=document.getElementById("color1").value;
+let c2=document.getElementById("color2").value;
+let fur=document.getElementById("fur").value;
+let eyes=document.getElementById("eyes").value;
+
+avatar="🐱";
+
+document.getElementById("avatarPreview").innerText=avatar;
+
+localStorage.setItem("avatar",avatar);
+localStorage.setItem("profileText",
+breed+" | "+c1+" & "+c2+" | "+fur+" | "+eyes);
+
+loadProfile();
+}
+
+function loadProfile(){
+
+avatar=localStorage.getItem("avatar") || "🐱";
+let txt=localStorage.getItem("profileText") || "No custom avatar yet.";
+
+document.getElementById("avatarPreview").innerText=avatar;
+document.getElementById("profileInfo").innerHTML=
+"<b>"+currentUser+"</b><br>"+txt;
+}
+
+/* CHAT */
+function sendMsg(){
+
+let msg=document.getElementById("chatInput").value.trim();
+if(msg=="") return;
+
+let old=JSON.parse(localStorage.getItem("chatMsgs") || "[]");
+
+old.push({
+name:currentUser,
+avatar:avatar,
+text:msg
+});
+
+localStorage.setItem("chatMsgs",JSON.stringify(old));
+document.getElementById("chatInput").value="";
+loadChat();
+}
+
+function loadChat(){
+
+let msgs=JSON.parse(localStorage.getItem("chatMsgs") || "[]");
+let box=document.getElementById("chatBox");
+
+box.innerHTML="";
+
+msgs.forEach(m=>{
+box.innerHTML+=
+"<div class='msg'>"+m.avatar+" <b>"+m.name+
+"</b>: "+m.text+"</div>";
+});
+
+box.scrollTop=box.scrollHeight;
+}
+
+/* AUTO LOGIN */
 window.onload=function(){
 
-let savedUser=localStorage.getItem("savedUser");
-let savedCode=localStorage.getItem("savedCode");
+let u=localStorage.getItem("savedUser");
+let p=localStorage.getItem("savedPw");
+let c=localStorage.getItem("savedCode");
 
-if(savedUser && savedCode){
-document.getElementById("user").value=savedUser;
-document.getElementById("classCode").value=savedCode;
+if(u && c){
+document.getElementById("user").value=u;
+document.getElementById("pw").value=p;
+document.getElementById("classCode").value=c;
 document.getElementById("remember").checked=true;
 login();
 }
